@@ -1,0 +1,37 @@
+name: CI - Java Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    name: Build & Test Java App
+    runs-on: ubuntu-latest
+
+    env:
+      JAVA_VERSION: '17'
+      MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'maven'
+
+      - name: Validate project
+        run: mvn -B validate
+
+      - name: Run unit tests
+        run: mvn -B test
