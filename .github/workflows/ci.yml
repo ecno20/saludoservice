@@ -1,0 +1,15 @@
+name: CI Caller
+
+on:
+  push:
+    branches: [ "main", "develop", "staging", "hotfix-add-CI" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  # Invocamos el flujo reutilizable del repo central
+  call-java-pipeline:
+    uses: ecno20/devops-library/.github/workflows/java-build.yml@main
+    with:
+      java-version: '17'
+    # Si en el futuro agregas secretos (GCP_PROJECT_ID), se pasan aquí
