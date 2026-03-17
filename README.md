@@ -6,8 +6,7 @@
 # TEST >> actualización Repo DevOps Library
 ## En en el primer job:
 
-bash ´´´
-build-and-scan:
+bash ´´´build-and-scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
