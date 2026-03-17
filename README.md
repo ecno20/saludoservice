@@ -6,7 +6,7 @@
 # TEST >> actualización Repo DevOps Library
 ## En en el primer job:
 
-´´´bash 
+
 build-and-scan:
     runs-on: ubuntu-latest
     steps:
@@ -27,9 +27,9 @@ build-and-scan:
           name: java-app-package
           path: target/*.jar  # Maven guarda el resultado aquí
           retention-days: 1   # Solo lo necesitamos para el flujo actual
-´´´
+
 ## Y los siguientes steeps tanto en QA y PROD
-´´´bash 
+
 steps:
       - name: Download Build Artifact 📥
         uses: actions/download-artifact@v4
@@ -40,5 +40,5 @@ steps:
         run: ls -R  # Verificamos que el .jar esté presente
         
       # ... (aquí siguen tus pasos de echo actuales)
-´´´
+
 ## Para conservar el archivo .jar y se pueda compartir en todos los despliegues
