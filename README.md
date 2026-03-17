@@ -6,7 +6,8 @@
 # TEST >> actualización Repo DevOps Library
 ## En en el primer job:
 
-bash ´´´build-and-scan:
+´´´bash 
+build-and-scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,7 +29,7 @@ bash ´´´build-and-scan:
           retention-days: 1   # Solo lo necesitamos para el flujo actual
 ´´´
 ## Y los siguientes steeps tanto en QA y PROD
-bash ´´´
+´´´bash 
 steps:
       - name: Download Build Artifact 📥
         uses: actions/download-artifact@v4
