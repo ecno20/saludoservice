@@ -7,9 +7,13 @@ on:
     branches: [ "main", "develop" ]
 
 jobs:
-  # Invocamos el flujo reutilizable del repo central
+  # Se Invoca el flujo reutilizable del repo central
   call-java-pipeline:
+    permissions:      # <--- Se añaden los permisos lectura/escritura
+      checks: write
+      pull-requests: write
+      contents: read
     uses: ecno20/devops-library/.github/workflows/java-build.yml@main
     with:
       java-version: '17'
-    # Si en el futuro agregas secretos (GCP_PROJECT_ID), se pasan aquí
+    # Próximamente agregaré los secretos (GCP_PROJECT_ID), aquí
