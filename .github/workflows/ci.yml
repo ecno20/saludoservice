@@ -12,7 +12,7 @@ jobs:
     permissions:      # <--- Se añaden los permisos lectura/escritura
       checks: write
       pull-requests: write
-      contents: read
+      contents: write
     uses: ecno20/devops-library/.github/workflows/java-build.yml@main
     with:
       java-version: '17'
