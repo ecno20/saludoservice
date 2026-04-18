@@ -84,7 +84,7 @@ steps:
           files: "*.jar" # Sube todos los archivos .jar encontrados
           draft: false
           prerelease: false
-## Pruebas ->>Se agregan los siguientes parametros:
+## Pruebas ->>Se agregan los siguientes parametros, esta prueba es con el fin de verificar los relase:
 # 1. Descargamos el artefacto que compilamos al inicio
       - name: Download Artifact 📥
         uses: actions/download-artifact@v4
