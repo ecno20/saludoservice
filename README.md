@@ -61,7 +61,7 @@ build-and-scan:
 ## Esto con el fin de garantizar la calidad y robustecer nuestro pipeline  usando "Control de Calidad Automático (Quality Gates)"
 
 ## Y los siguientes steeps tanto en QA y PROD
-
+## Para conservar el archivo .jar y se pueda compartir en todos los despliegues
 steps:
       - name: Download Build Artifact 📥
         uses: actions/download-artifact@v4
@@ -73,4 +73,14 @@ steps:
         
       # ... (aquí siguen tus pasos de echo actuales)
 
-## Para conservar el archivo .jar y se pueda compartir en todos los despliegues
+
+## Este paso Crear la Release de GitHub y adjuntar el .jar, se agrega en Repo Central, para efectuar
+## Pruebas
+      - name: Create GitHub Release 🚀
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag_logic.outputs.new_tag }}
+          name: Release ${{ steps.tag_logic.outputs.new_tag }}
+          files: "*.jar" # Sube todos los archivos .jar encontrados
+          draft: false
+          prerelease: false
