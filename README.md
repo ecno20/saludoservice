@@ -84,3 +84,31 @@ steps:
           files: "*.jar" # Sube todos los archivos .jar encontrados
           draft: false
           prerelease: false
+## Pruebas ->>Se agregan los siguientes parametros:
+# 1. Descargamos el artefacto que compilamos al inicio
+      - name: Download Artifact 📥
+        uses: actions/download-artifact@v4
+        with:
+          name: java-app-package
+
+      # 2. Lógica de incremento de Tag (la que ya tienes)
+      - name: Generate Tag 🏷️
+        id: tag_logic
+        run: |
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")
+          VERSION_PARTS=(${LATEST_TAG//./ })
+          PATCH=$((VERSION_PARTS[2] + 1))
+          NEW_TAG="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.$PATCH"
+          echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
+          git tag $NEW_TAG
+          git push origin $NEW_TAG
+
+      # 3. NUEVO: Crear la Release de GitHub y adjuntar el .jar
+      - name: Create GitHub Release 🚀
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag_logic.outputs.new_tag }}
+          name: Release ${{ steps.tag_logic.outputs.new_tag }}
+          files: "*.jar" # Sube todos los archivos .jar encontrados
+          draft: false
+          prerelease: false
