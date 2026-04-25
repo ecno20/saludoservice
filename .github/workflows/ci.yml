@@ -5,7 +5,13 @@ on:
     branches: [ "main", "develop", "staging", "hotfix-add-CI" ]
   pull_request:
     branches: [ "main", "develop" ]
-
+  # Disparador manual para Rollback
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Tag de la versión para Rollback (ej: v1.0.1)'
+        required: true
+        type: string  
 jobs:
   # Se Invoca el flujo reutilizable del repo central
   call-java-pipeline:
@@ -16,4 +22,5 @@ jobs:
     uses: ecno20/devops-library/.github/workflows/java-build.yml@main
     with:
       java-version: '17'
+      version: ${{ github.event.inputs.version }}
     # Próximamente agregaré los secretos (GCP_PROJECT_ID), aquí
