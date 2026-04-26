@@ -24,4 +24,5 @@ jobs:
     with:
       java-version: '17'
       version: ${{ github.event.inputs.version }}
+    # ecno20 agrega variable "version" para invocar en flujo principal
     # Próximamente agregaré los secretos (GCP_PROJECT_ID), aquí
