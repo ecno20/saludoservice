@@ -112,3 +112,15 @@ steps:
           files: "*.jar" # Sube todos los archivos .jar encontrados
           draft: false
           prerelease: false
+      #  Paso 2. Lógica de incremento de Tag (Actualización del paso anterior)
+#   Generate Tag 🏷️ (anterior)
+       - name: Generate Tag 🏷️
+         id: tag_logic
+         run: |
+             LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")
+             VERSION_PARTS=(${LATEST_TAG//./ })
+             PATCH=$((VERSION_PARTS[2] + 1))
+             NEW_TAG="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.$PATCH"
+             echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
+             git tag $NEW_TAG
+             git push origin $NEW_TAG
