@@ -47,6 +47,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>saludoservice</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -61,28 +62,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>com.google.cloud.tools</groupId>
-				<artifactId>jib-maven-plugin</artifactId>
-				<version>3.4.1</version>
-				<configuration>
-					<to>
-						<image>docker.io/${DOCKER_HUB_USERNAME}/saludoservice</image>
-						<tags>
-							<tag>${project.version}</tag>
-							<tag>latest</tag>
-						</tags>
-					</to>
-					<container>
-						<jvmFlags>
-							<jvmFlag>-XX:+UseG1GC</jvmFlag>
-							<jvmFlag>-XX:+UseContainerSupport</jvmFlag>
-						</jvmFlags>
-						<ports>
-							<port>8080</port>
-						</ports>
-					</container>
-				</configuration>
-			</plugin>
-		</plugins>
+
 	</build>
 </project>
