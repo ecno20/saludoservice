@@ -1,4 +1,4 @@
-# Test PR<<main to staging>>
+# Test PR<<main to staging>> <<Update 19-07-2026: add GHCR>>
 ## Este archivo se actualizará próximamente con la documentación necesaria
 // Test de flujo QA automático
 # Prueba de flujo desde Develop a QA
