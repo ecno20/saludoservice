@@ -61,7 +61,6 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
-
+		</plugins>
 	</build>
 </project>
