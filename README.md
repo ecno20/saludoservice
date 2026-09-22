@@ -113,7 +113,7 @@ steps:
           draft: false
           prerelease: false
       #  Paso 2. Lógica de incremento de Tag (Actualización del paso anterior)
-#   Generate Tag 🏷️ (anterior)
+# Generate Tag 🏷️ (anterior)
        - name: Generate Tag 🏷️
          id: tag_logic
          run: |
@@ -124,3 +124,45 @@ steps:
              echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
              git tag $NEW_TAG
              git push origin $NEW_TAG
+
+# Update: 22-09-2026--> Integrate de Rollback con container de Docker
+
+  rollback:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # Permiso requerido para actualizar tags en GHCR
+    steps:
+      # 1. Conservamos la descarga del binario .jar clásico de la Release
+      - name: Download Specific Release 📦
+        uses: robinraju/release-downloader@v1.10
+        with:
+          tag: ${{ github.event.inputs.version }}
+          fileName: "*.jar"
+
+      # 2. Autenticación transparente en GHCR 🐙
+      - name: Log in to GHCR 🔑
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # 3. Pull de la versión estable y actualización de la etiqueta 'latest' 🔄
+      - name: Promote Version to Latest in GHCR 🚀
+        run: |
+          IMAGE_BASE="ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}"
+          TARGET_TAG="${{ github.event.inputs.version }}"
+          
+          echo "Iniciando Rollback..."
+          echo "Descargando imagen estable: $IMAGE_BASE:$TARGET_TAG"
+          docker pull $IMAGE_BASE:$TARGET_TAG
+          
+          echo "Re-etiquetando $TARGET_TAG como latest..."
+          docker tag $IMAGE_BASE:$TARGET_TAG $IMAGE_BASE:latest
+          
+          echo "Publicando actualización en GHCR..."
+          docker push $IMAGE_BASE:latest
+          
+          echo "Rollback completado con éxito a la versión $TARGET_TAG. ✅"
