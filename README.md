@@ -166,3 +166,7 @@ steps:
           docker push $IMAGE_BASE:latest
           
           echo "Rollback completado con éxito a la versión $TARGET_TAG. ✅"
+
+## CI-Caller--> éxito
+
+[![CI Caller](https://github.com/ecno20/saludoservice/actions/workflows/ci.yml/badge.svg)](https://github.com/ecno20/saludoservice/actions/workflows/ci.yml)
