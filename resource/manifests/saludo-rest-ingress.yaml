@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: saludo-rest-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: k8s.nuup.ninja
+      http:
+        paths:
+          - path: /greeting-user4
+            pathType: Prefix
+            backend:
+              service:
+                name: saludo-rest-service
+                port:
+                  number: 80
