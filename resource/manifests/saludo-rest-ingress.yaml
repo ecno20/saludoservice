@@ -8,7 +8,7 @@ spec:
     - host: k8s.nuup.ninja
       http:
         paths:
-          - path: /greeting-user4
+          - path: /saludo-rest
             pathType: Prefix
             backend:
               service:
