@@ -174,3 +174,7 @@ steps:
 ## CI-Caller--> Rollback previo:
 
 [![CI Caller](https://github.com/ecno20/saludoservice/actions/workflows/ci.yml/badge.svg)](https://github.com/ecno20/saludoservice/actions/workflows/ci.yml)
+
+## CI-Caller--> Rollback Status:
+
+[![CI Caller](https://github.com/ecno20/saludoservice/actions/workflows/ci.yml/badge.svg)](https://github.com/ecno20/saludoservice/actions/workflows/ci.yml)
